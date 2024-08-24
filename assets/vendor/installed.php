@@ -9,9 +9,9 @@
     array (
     ),
   ),
-  'barecss/css/bare.min.css' => 
+  '@hotwired/turbo' => 
   array (
-    'version' => '1.1.1',
+    'version' => '7.3.0',
     'dependencies' => 
     array (
     ),

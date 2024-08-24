@@ -1,7 +1,5 @@
 <?php
 
-declare(strict_types=1);
-
 /**
  * Returns the importmap for this application.
  *
@@ -24,11 +22,10 @@ return [
     '@symfony/stimulus-bundle' => [
         'path' => '@symfony/stimulus-bundle/loader.js',
     ],
-    'barecss/css/bare.min.css' => [
-        'version' => '1.1.0',
-        'type' => 'css',
-    ],
     '@hotwired/turbo' => [
         'version' => '7.3.0',
+    ],
+    '@symfony/ux-live-component' => [
+        'path' => './vendor/symfony/ux-live-component/assets/dist/live_controller.js',
     ],
 ];
