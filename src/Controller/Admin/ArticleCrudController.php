@@ -4,10 +4,12 @@ namespace App\Controller\Admin;
 
 use App\Entity\Article;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
+use EasyCorp\Bundle\EasyAdminBundle\Field\AssociationField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\CodeEditorField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\CollectionField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\Field;
 use EasyCorp\Bundle\EasyAdminBundle\Field\IdField;
+use EasyCorp\Bundle\EasyAdminBundle\Field\SlugField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextEditorField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\UrlField;
@@ -25,11 +27,13 @@ class ArticleCrudController extends AbstractCrudController
         return [
             IdField::new('id')->hideOnForm(),
             TextField::new('title'),
+            SlugField::new('slug')->setTargetFieldName('title'),
             Field::new('isPrivate'),
             Field::new('status'),
-            CodeEditorField::new('content',),
-            CollectionField::new('tags'),
-        ];
+            CodeEditorField::new('content'),
+            AssociationField::new('tags')
+                ->setFormTypeOptionIfNotSet('by_reference', false)
+                ->hideOnIndex(),        ];
     }
 
 }

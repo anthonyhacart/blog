@@ -7,11 +7,13 @@ namespace App\Entity;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 #[ORM\Entity]
 #[ORM\InheritanceType('JOINED')]
 #[ORM\DiscriminatorColumn(name: 'discr', type: 'string')]
 #[ORM\DiscriminatorMap(['article' => Article::class, 'link' => Link::class])]
+#[UniqueEntity(fields: ['slug'], errorPath: 'title')]
 class Content
 {
     #[ORM\Id]
@@ -42,6 +44,9 @@ class Content
 
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $metaDescription = null;
+
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $slug = null;
 
     public function __construct()
     {
@@ -151,6 +156,18 @@ class Content
     public function setMetaDescription(string $metaDescription): static
     {
         $this->metaDescription = $metaDescription;
+
+        return $this;
+    }
+
+    public function getSlug(): ?string
+    {
+        return $this->slug;
+    }
+
+    public function setSlug(?string $slug): static
+    {
+        $this->slug = $slug;
 
         return $this;
     }

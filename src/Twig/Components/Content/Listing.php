@@ -39,7 +39,7 @@ class Listing
 
     public function getItems(): array
     {
-        $links = $this->linkRepository->findBy([], ['updatedAt' => 'desc'], self::PER_PAGE, $this->page * self::PER_PAGE);
+        $links = $this->linkRepository->findBy([], ['createdAt' => 'desc'], self::PER_PAGE, $this->page * self::PER_PAGE);
 
         return $links;
     }
