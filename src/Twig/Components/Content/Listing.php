@@ -17,7 +17,7 @@ class Listing
     use ComponentToolsTrait;
     use DefaultActionTrait;
 
-    private const PER_PAGE = 5;
+    private const PER_PAGE = 6;
 
     #[LiveProp]
     public int $page = 1;

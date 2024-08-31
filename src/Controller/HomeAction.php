@@ -1,21 +1,17 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\HttpKernel\Attribute\AsController;
 use Symfony\Component\Routing\Attribute\Route;
 
-/**
- * @see StaticActionTest
- */
-#[AsController]
-#[Route(name: 'app_')]
+#[Route('/', name: 'app_home')]
 class HomeAction extends AbstractController
 {
-    #[Route('/', name: 'home')]
-    public function index(): Response
+    public function __invoke(): Response
     {
         return $this->render('pages/index.html.twig');
     }
