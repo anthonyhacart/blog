@@ -39,7 +39,8 @@ class Content
     /**
      * @var Collection<int, Tag>
      */
-    #[ORM\ManyToMany(targetEntity: Tag::class, mappedBy: 'contents', cascade: ['persist'])]
+    #[ORM\ManyToMany(targetEntity: Tag::class, inversedBy: 'contents', cascade: ['persist'], fetch: 'EAGER')]
+    #[ORM\JoinTable(name: 'content_tag')]
     private Collection $tags;
 
     #[ORM\Column(length: 255, nullable: true)]
