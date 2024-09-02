@@ -21,8 +21,12 @@ class Tag
     /**
      * @var Collection<int, Content>
      */
-    #[ORM\ManyToMany(targetEntity: Content::class, inversedBy: 'tags')]
+    #[ORM\ManyToMany(targetEntity: Content::class, mappedBy: 'tags', fetch: 'LAZY')]
+    #[ORM\JoinTable(name: 'content_tag')]
     private Collection $contents;
+
+    #[ORM\Column(length: 255)]
+    private ?string $slug = null;
 
     public function __construct()
     {
@@ -76,5 +80,17 @@ class Tag
     public function __toString(): string
     {
         return sprintf('#%s', $this->name);
+    }
+
+    public function getSlug(): ?string
+    {
+        return $this->slug;
+    }
+
+    public function setSlug(string $slug): static
+    {
+        $this->slug = $slug;
+
+        return $this;
     }
 }

@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Twig\Components\Content;
 
-use App\Repository\LinkRepository;
+use App\Repository\ContentRepository;
 use Symfony\UX\LiveComponent\Attribute\AsLiveComponent;
 use Symfony\UX\LiveComponent\Attribute\LiveAction;
 use Symfony\UX\LiveComponent\Attribute\LiveProp;
@@ -22,7 +22,7 @@ class Listing
     #[LiveProp]
     public int $page = 1;
 
-    public function __construct(private readonly LinkRepository $linkRepository)
+    public function __construct(private readonly ContentRepository $contentRepository)
     {
     }
 
@@ -34,13 +34,24 @@ class Listing
 
     public function hasMore(): bool
     {
-        return \count($this->linkRepository->findAll()) > ($this->page * self::PER_PAGE);
+        return \count($this->contentRepository->findBy($this->getCriteria())) > ($this->page * self::PER_PAGE);
     }
 
     public function getItems(): array
     {
-        $links = $this->linkRepository->findBy([], ['createdAt' => 'desc'], self::PER_PAGE, $this->page * self::PER_PAGE);
+        $page = max(0, $this->page - 1);
+        $offset = $page * self::PER_PAGE;
 
-        return $links;
+        return $this->contentRepository->findBy(
+            $this->getCriteria(),
+            ['id' => 'desc'],
+            self::PER_PAGE,
+            $offset
+        );
+    }
+
+    private function getCriteria(): array
+    {
+        return ['status' => 'published'];
     }
 }

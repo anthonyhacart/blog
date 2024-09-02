@@ -21,4 +21,9 @@ class Article extends Content
     {
         $this->content = $content;
     }
+
+    public function isArticle(): bool
+    {
+        return true;
+    }
 }
